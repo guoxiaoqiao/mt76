@@ -191,7 +191,7 @@ mt76x2_phy_tssi_init_cal(struct mt76x2_dev *dev)
 	if (mt76x2_channel_silent(dev))
 		return false;
 
-	if (chan->band == NL80211_BAND_2GHZ)
+	if (chan->band == IEEE80211_BAND_2GHZ)
 		flag |= BIT(0);
 
 	if (mt76x2_ext_pa_enabled(dev, chan->band))
@@ -206,7 +206,7 @@ static void
 mt76x2_phy_channel_calibrate(struct mt76x2_dev *dev, bool mac_stopped)
 {
 	struct ieee80211_channel *chan = dev->mt76.chandef.chan;
-	bool is_5ghz = chan->band == NL80211_BAND_5GHZ;
+	bool is_5ghz = chan->band == IEEE80211_BAND_5GHZ;
 
 	if (dev->cal.channel_cal_done)
 		return;
@@ -349,11 +349,11 @@ static void
 mt76x2_phy_set_band(struct mt76x2_dev *dev, int band, bool primary_upper)
 {
 	switch (band) {
-	case NL80211_BAND_2GHZ:
+	case IEEE80211_BAND_2GHZ:
 		mt76_set(dev, MT_TX_BAND_CFG, MT_TX_BAND_CFG_2G);
 		mt76_clear(dev, MT_TX_BAND_CFG, MT_TX_BAND_CFG_5G);
 		break;
-	case NL80211_BAND_5GHZ:
+	case IEEE80211_BAND_5GHZ:
 		mt76_clear(dev, MT_TX_BAND_CFG, MT_TX_BAND_CFG_2G);
 		mt76_set(dev, MT_TX_BAND_CFG, MT_TX_BAND_CFG_5G);
 		break;
